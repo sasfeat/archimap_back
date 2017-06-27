@@ -3,7 +3,8 @@ from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
-import settings
+# change for local launch
+import settings_heroku as settings
 
 
 app = Flask(__name__)
@@ -12,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://"\
                                         +"@" + ":".join([settings.db_host, str(settings.db_port)])\
                                         +"/" + settings.db_name
 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
