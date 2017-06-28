@@ -46,7 +46,8 @@ class BuildMeta(db.Model):
     photo = db.Column(db.Text)
     year_from = db.Column(db.Integer)
     year_to = db.Column(db.Integer)
-    year_acc = db.Column(db.Integer, default=0)
+    year_from_acc = db.Column(db.Integer, default=0)
+    year_to_acc = db.Column(db.Integer, default=0)
     build_styles = db.relationship('Styles',
                                    secondary = build_to_styles,
                                    # backref=db.backref('builds'),
@@ -59,7 +60,7 @@ class BuildMeta(db.Model):
     build_history = db.relationship('BuildHistory', lazy='dynamic')
 
     def __init__(self, name, name_add, notes, link, lat, lon,
-                 photo, year_from, year_to, year_acc):
+                 photo, year_from, year_to, year_from_acc, year_to_acc):
         self.name = name
         self.name_add = name_add
         self.notes = notes
@@ -69,7 +70,8 @@ class BuildMeta(db.Model):
         self.photo = photo
         self.year_from = year_from
         self.year_to = year_to
-        self.year_acc = year_acc
+        self.year_from_acc = year_from_acc
+        self.year_to_acc = year_to_acc
 
 
 class Archi(db.Model):
@@ -93,14 +95,12 @@ class BuildHistory(db.Model):
     event = db.Column(db.Text)
     year = db.Column(db.Integer)
     year_acc = db.Column(db.Integer, default=0)
-    photo = db.Column(db.Text)
 
-    def __init__(self, notes, event, year, year_acc, photo):
+    def __init__(self, notes, event, year, year_acc):
         self.notes = notes
         self.event = event
         self.year = year
         self.year_acc = year_acc
-        self.photo = photo
 
 
 class StylesSerializer(ma.ModelSchema):
