@@ -30,10 +30,8 @@ class Styles(db.Model):
     __tablename__ = 'styles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text)
-    link = db.Column(db.Text)
-    def __init__(self, name, link):
+    def __init__(self, name):
         self.name = name
-        self.link = link
 
 
 class BuildMeta(db.Model):
