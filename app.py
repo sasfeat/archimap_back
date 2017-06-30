@@ -5,6 +5,9 @@ from flask_marshmallow import Marshmallow
 
 import settings
 
+from flask_cors import CORS, cross_origin
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLALCHEMY_DATABASE_URI
@@ -13,6 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 build_to_styles = db.Table('build_to_styles',
