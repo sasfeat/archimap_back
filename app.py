@@ -17,7 +17,7 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 build_to_styles = db.Table('build_to_styles',
                         db.Column('build_id', db.Integer, db.ForeignKey('build_meta.id')),
