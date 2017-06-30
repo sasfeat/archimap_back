@@ -5,12 +5,14 @@ from flask_marshmallow import Marshmallow
 
 import settings
 
-from flask.ext.cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLALCHEMY_DATABASE_URI
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['CORS_HEADERS'] = 'Content-Type'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
@@ -129,7 +131,6 @@ class BuildMetaSerializer(ma.ModelSchema):
 
 
 class StylesView(Resource):
-    @cross_origin()
     def get(self):
         rows = db.session.query(Styles).all()
         serializer = StylesSerializer(many=True)
@@ -137,7 +138,6 @@ class StylesView(Resource):
 
 
 class BuildMetaView(Resource):
-    @cross_origin()
     def get(self):
         rows = db.session.query(BuildMeta).all()
         serializer = BuildMetaSerializer(many=True)
@@ -145,7 +145,6 @@ class BuildMetaView(Resource):
 
 
 class ArchiView(Resource):
-    @cross_origin()
     def get(self):
         rows = db.session.query(Archi).all()
         serializer = ArchiSerializer(many=True)
