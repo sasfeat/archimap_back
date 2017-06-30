@@ -5,19 +5,17 @@ from flask_marshmallow import Marshmallow
 
 import settings
 
-from flask_cors import CORS, cross_origin
-
-
+from flask.ext.cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = settings.SQLALCHEMY_DATABASE_URI
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['CORS_HEADERS'] = 'Content-Type'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 build_to_styles = db.Table('build_to_styles',
                         db.Column('build_id', db.Integer, db.ForeignKey('build_meta.id')),
