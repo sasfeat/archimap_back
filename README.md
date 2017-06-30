@@ -1,10 +1,12 @@
 # Web map of architecture(backend)
 
-### How to set up the app to the localhost
+### How to set up the app
+
+#### 1. Localhost
 
 ...
 
-###How to set up the app on heroku
+#### 2. Heroku
 Assume that you already have heroku account
 1. Login to heroku using your email and pwd
 ```
