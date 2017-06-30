@@ -131,6 +131,7 @@ class BuildMetaSerializer(ma.ModelSchema):
 
 
 class StylesView(Resource):
+    @cross_origin()
     def get(self):
         rows = db.session.query(Styles).all()
         serializer = StylesSerializer(many=True)
@@ -138,6 +139,7 @@ class StylesView(Resource):
 
 
 class BuildMetaView(Resource):
+    @cross_origin()
     def get(self):
         rows = db.session.query(BuildMeta).all()
         serializer = BuildMetaSerializer(many=True)
@@ -145,6 +147,7 @@ class BuildMetaView(Resource):
 
 
 class ArchiView(Resource):
+    @cross_origin()
     def get(self):
         rows = db.session.query(Archi).all()
         serializer = ArchiSerializer(many=True)
