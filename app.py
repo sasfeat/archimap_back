@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -144,6 +144,15 @@ class BuildMetaView(Resource):
         return jsonify(serializer.dump(rows).data)
 
 
+class BuildMetaItemView(Resource):
+    def get(self, build_id):
+        row = db.session.query(BuildMeta).filter_by(id=build_id).first()
+        if row is None:
+            abort(404, message="Building with id {} doesn't exist".format(build_id))
+        serializer = BuildMetaSerializer()
+        return jsonify(serializer.dump(row).data)
+
+
 class ArchiView(Resource):
     def get(self):
         rows = db.session.query(Archi).all()
@@ -153,6 +162,7 @@ class ArchiView(Resource):
 
 api.add_resource(StylesView, '/api/styles')
 api.add_resource(BuildMetaView, '/api/build_meta')
+api.add_resource(BuildMetaItemView, '/api/build_meta/<build_id>')
 api.add_resource(ArchiView, '/api/archi')
 
 if __name__ == '__main__':
